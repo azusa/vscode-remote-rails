@@ -6,11 +6,11 @@
         "**/.factorypath": true
     },
     "workbench.colorCustomizations": {
-        "activityBar.foreground": "#CECC67",
+        "activityBar.foreground": "#9CE46F",
         "activityBar.background": "#000000",
-        "activityBar.inactiveForeground": "#643D00",
+        "activityBar.inactiveForeground": "#354800",
         "activityBarBadge.foreground": "#000000",
-        "activityBarBadge.background": "#6BD73F",
+        "activityBarBadge.background": "#44DE7F",
         "statusBar.foreground": "#98FFD6",
         "statusBar.background": "#0E8354",
         "statusBarItem.hoverBackground": "#175756",
