@@ -13,18 +13,22 @@ ARG USER_GID=$USER_UID
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
+    # ① apt-utilsのインストール
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
     #
-    # Install git, process tools, lsb-release (common in install instructions for CLIs)
+    # ② 必要なパッケージのインストール
     && apt-get -y install curl git procps lsb-release \
-    build-essential libsqlite3-dev nodejs git sqlite3  \
+    # ③ Ruby on Railsのビルドに必要なパッケージのインストール
+    build-essential libsqlite3-dev nodejs sqlite3  \
+    # ④ ユーザーの追加
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    # [Optional] Add sudo support for non-root user
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && gem install rails bundler \
+    # ⑤ 開発環境のセットアップ
+    && gem install rails bundler solargraph \
+    && ln -s /usr/local/bundle/bin/solargraph /usr/local/bin/solargraph \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -  \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update && sudo apt-get install yarn \

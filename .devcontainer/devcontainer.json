@@ -18,7 +18,10 @@
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "java -version",
 
+	"forwardPorts": [3000],
+
 	"extensions": [
-		"rebornix.Ruby"
+		"wingrunr21.vscode-ruby",
+		"bung87.rails"
 	]
 }
