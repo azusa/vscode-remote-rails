@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-FROM ruby:2.6-buster
+FROM ruby:2.6.6-buster
 
 # Or your actual UID, GID on Linux if not the default 1000
 ARG USERNAME=vscode
