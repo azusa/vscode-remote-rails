@@ -1,41 +1,24 @@
-#-----------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See LICENSE in the project root for license information.
-#-----------------------------------------------------------------------------------------
+# [Choice] Ruby version (use -bullseye variants on local arm64/Apple Silicon): 3, 3.1, 3.0, 2, 2.7, 2.6, 3-bullseye, 3.1-bullseye, 3.0-bullseye, 2-bullseye, 2.7-bullseye, 2.6-bullseye, 3-buster, 3.1-buster, 3.0-buster, 2-buster, 2.7-buster, 2.6-buster
+ARG VARIANT=2-bullseye
+FROM mcr.microsoft.com/devcontainers/ruby:${VARIANT}
 
-FROM ruby:2.6.6-buster
+# Install Rails
+RUN gem install rails webdrivers
 
-# Or your actual UID, GID on Linux if not the default 1000
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+# Default value to allow debug server to serve content over GitHub Codespace's port forwarding service
+# The value is a comma-separated list of allowed domains 
+ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.app.github.dev"
 
-# Configure apt
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    # ① apt-utilsのインストール
-    && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
-    #
-    # ② 必要なパッケージのインストール
-    && apt-get -y install curl git procps lsb-release \
-    # ③ Ruby on Railsのビルドに必要なパッケージのインストール
-    build-essential libsqlite3-dev nodejs sqlite3  \
-    # ④ ユーザーの追加
-    && groupadd --gid $USER_GID $USERNAME \
-    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && apt-get install -y sudo \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
-    # ⑤ 開発環境のセットアップ
-    && gem install rails bundler solargraph \
-    && ln -s /usr/local/bundle/bin/solargraph /usr/local/bin/solargraph \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -  \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update && sudo apt-get install yarn \
-    #
-    # Clean up
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+# [Choice] Node.js version: lts/*, 16, 14, 12, 10
+ARG NODE_VERSION="lts/*"
+RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"
 
-ENV DEBIAN_FRONTEND=
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
+
+# [Optional] Uncomment this line to install additional gems.
+# RUN gem install <your-gem-names-here>
+
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
