@@ -20,7 +20,7 @@ RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSI
      && apt-get -y install --no-install-recommends python2.7
 
 # [Optional] Uncomment this line to install additional gems.
-# RUN gem install <your-gem-names-here>
+#RUN gem install ruby-debug-ide
 
 
 # [Optional] Uncomment this line to install global node packages.
