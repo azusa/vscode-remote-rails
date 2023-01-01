@@ -28,5 +28,8 @@
 	"remoteUser": "vscode",
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {}
+	},
+	"remoteEnv": {
+		"GEM_HOME": "${containerWorkspaceFolder}/vendor/.cache"
 	}
 }
