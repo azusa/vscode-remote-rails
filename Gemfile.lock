@@ -216,6 +216,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  armv7l-linux-eabihf
   x86_64-linux
 
 DEPENDENCIES
