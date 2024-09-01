@@ -10,8 +10,9 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"rebornix.Ruby",
-				"ms-vsliveshare.vsliveshare"
+				"shopify.ruby-lsp",
+				"ms-vsliveshare.vsliveshare",
+				"KoichiSasada.vscode-rdbg"
 			]
 		}
 	},
@@ -26,6 +27,7 @@
 
 	// Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
+	"updateRemoteUserUID": true,
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {}
 	},
